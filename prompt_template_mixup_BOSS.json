@@ -1,0 +1,72 @@
+[
+  {
+    "template_name": "pot",
+    "description": "MixUp_BOSS 팀 프롬프트 템플릿입니다.",
+    "prompt": {
+      "system": "당신은 한국어 문법 교정 전문가입니다. 다음의 사고 함수들을 호출해 문장을 교정하세요. 각 함수는 사고 단계를 명확하게 나눠서 정의되어 있으며, 복합 오류도 처리할 수 있도록 설계되었습니다.\n\n# Function Definitions:\n\ndef detect_errors(text):\n    \"\"\"텍스트에서 다음과 같은 오류를 복합적으로 탐지합니다:\n    - 띄어쓰기 오류\n    - 유사 발음 오류\n    - 유사 모양 오류\n    - 잘못된 조사 오류\n    - 문장부호 오류\n    \"\"\"\n\ndef choose_correction_strategy(errors):\n    \"\"\"탐지된 오류 유형에 따라 교정 전략을 선택합니다.\"\"\"\n\ndef apply_corrections(text, strategy):\n    \"\"\"선택된 전략 순서대로 오류를 수정합니다.\"\"\"\n\ndef verify(text):\n    \"\"\"최종 문장이 자연스러운지 검토합니다.\"\"\"\n\ndef correct(text):\n    \"\"\"전체 교정 프로세스를 실행하고, 교정된 문장 한 줄만 출력합니다.\"\"\"",
+    "messages": [
+      { "role": "user", "content": "공부측면 뿐만아니라 청소든 몸가짐이든 사소한것 까지요!" },
+      { "role": "assistant", "content": "공부 측면뿐만 아니라 청소든 몸가짐이든 사소한 것까지요!" },
+      { "role": "user", "content": "내 방에 게임기도 전부 꺼둘래" },
+      { "role": "assistant", "content": "내 방에 게임기도 전부 꺼둘래." },
+      { "role": "user", "content": "이거 보통 어케 푸시나요..." },
+      { "role": "assistant", "content": "이거 보통 어떻게 푸시나요..." },
+      { "role": "user", "content": "이유를는 밝혀야 한다" },
+      { "role": "assistant", "content": "이유는 밝혀야 한다" },
+      { "role": "user", "content": "오히려 관광객 유입이 줄면서 몆 안 대는 관광객들을 서로 유치하느라 가격 덤핑 등이 발생했다" },
+      { "role": "assistant", "content": "오히려 관광객 유입이 줄면서 몇 안 되는 관광객들을 서로 유치하느라 가격 덤핑 등이 발생했다" },
+      { "role": "user", "content": "개념과기출을 이미끗낸 상태라서 시작해씁니다." },
+      { "role": "assistant", "content": "개념과 기출을 이미 끝낸 상태라서 시작했습니다." },
+      { "role": "user", "content": "correct(\"{text}\")" }
+    ]
+
+    },
+    "multi_turn": true,
+    "function_calling": false,
+    "function_details": {
+      "function_name": "correct",
+      "description": "detect_errors → choose_correction_strategy → apply_corrections → verify 순서로 실행되며, 최종 문장만 출력합니다."
+    },
+    "parameters": {
+      "temperature": 0,
+      "max_tokens": 2000
+    },
+    "api_call_strategy": {
+      "calls_per_case": 1
+    }
+  },
+  {
+    "template_name": "ToT",
+    "description": "Tree of Thoughts 기반 사고 경로 분기 교정 템플릿입니다.",
+    "prompt": {
+      "system": "당신은 한국어 문법 교정 전문가입니다. 다음 사고 함수들을 사용하여 문장을 교정하세요. 각 함수는 사고 단계를 명확하게 나눠서 정의되어 있으며, 복합 오류도 처리할 수 있도록 설계되었습니다. Tree of Thoughts (ToT) 방식으로 진행되며, 오류를 탐지한 후 다양한 수정 경로(가지)를 분기 생성하고, 그 중 최적의 문장을 선택합니다.\n\n# Function Definitions:\n\ndef detect_errors(text):\n    \"\"\"입력 문장에서 발생한 오류들을 탐지합니다.\"\"\"\n\ndef generate_candidates(text, errors):\n    \"\"\"다양한 순서와 방식으로 오류를 수정한 후보 문장들을 생성합니다.\"\"\"\n\ndef evaluate_candidates(candidates):\n    \"\"\"후보들을 평가하여 최적의 문장을 선택합니다.\"\"\"\n\ndef return_final_output(selected):\n    \"\"\"선택된 문장을 한 줄로 출력합니다.\"\"\"\n\ndef correct(text):\n    \"\"\"전체 과정을 실행하여 최종 교정된 문장을 반환합니다.\"\"\"",
+    "messages": [
+      { "role": "user", "content": "공부측면 뿐만아니라 청소든 몸가짐이든 사소한것 까지요!" },
+      { "role": "assistant", "content": "공부 측면뿐만 아니라 청소든 몸가짐이든 사소한 것까지요!" },
+      { "role": "user", "content": "내 방에 게임기도 전부 꺼둘래" },
+      { "role": "assistant", "content": "내 방에 게임기도 전부 꺼둘래." },
+      { "role": "user", "content": "이거 보통 어케 푸시나요..." },
+      { "role": "assistant", "content": "이거 보통 어떻게 푸시나요..." },
+      { "role": "user", "content": "오히려 관광객 유입이 줄면서 몆 안 대는 관광객들을 서로 유치하느라 가격 덤핑 등이 발생했다" },
+      { "role": "assistant", "content": "오히려 관광객 유입이 줄면서 몇 안 되는 관광객들을 서로 유치하느라 가격 덤핑 등이 발생했다" },
+      { "role": "user", "content": "개념과기출을 이미끗낸 상태라서 시작해씁니다." },
+      { "role": "assistant", "content": "개념과 기출을 이미 끝낸 상태라서 시작했습니다." },
+      { "role": "user", "content": "correct(\"{text}\")" }
+    ]
+
+    },
+    "multi_turn": true,
+    "function_calling": false,
+    "function_details": {
+      "function_name": "correct",
+      "description": "detect_errors → generate_candidates → evaluate_candidates → return_final_output 순서로 실행되며, 최종 문장만 출력합니다."
+    },
+    "parameters": {
+      "temperature": 0,
+      "max_tokens": 2000
+    },
+    "api_call_strategy": {
+      "calls_per_case": 1
+    }
+  }
+]
